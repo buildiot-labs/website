@@ -1,0 +1,208 @@
+/* Custom Styles for BuildIoT Labs - Premium Light SaaS/Agency Aesthetic */
+
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  --color-bg-base: #F8F9FA;
+  --color-text-primary: #0F172A; /* Deep Slate */
+  --color-text-secondary: #475569; /* Slate Gray */
+  --color-primary: #2563EB; /* Modern Tech Blue */
+  --color-primary-hover: #1D4ED8;
+  --color-accent-maroon: #8B0000;
+  
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Base resets & variables */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-base);
+  color: var(--color-text-secondary);
+  overflow-x: hidden;
+}
+
+img {
+  background-color: transparent !important;
+}
+
+/* Technical Font Rules */
+.font-technical {
+  font-family: var(--font-mono);
+}
+
+/* Light Tech Grid Background Overlay */
+.tech-grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(37, 99, 235, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(37, 99, 235, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.tech-grid-bg-fine {
+  background-image: 
+    linear-gradient(to right, rgba(37, 99, 235, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(37, 99, 235, 0.05) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* Fluid Soft Radial Background Glows */
+.glow-lavender {
+  background: radial-gradient(circle 600px at 10% 15%, rgba(216, 180, 254, 0.35), transparent 70%);
+}
+
+.glow-blue {
+  background: radial-gradient(circle 700px at 90% 30%, rgba(186, 230, 253, 0.45), transparent 70%);
+}
+
+.glow-amber {
+  background: radial-gradient(circle 500px at 50% 65%, rgba(254, 240, 138, 0.25), transparent 70%);
+}
+
+/* Premium Light Card & Floating Panels */
+.premium-light-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.premium-light-card:hover {
+  border-color: rgba(37, 99, 235, 0.3);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  transform: translateY(-2px);
+}
+
+/* Floating Hero Mini UI Cards */
+.floating-glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.3s ease;
+}
+
+.floating-glass-card:hover {
+  transform: scale(1.03) translateY(-2px);
+}
+
+/* Technical Dividers */
+.tech-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(226, 232, 240, 0.8), rgba(37, 99, 235, 0.2), rgba(226, 232, 240, 0.8), transparent);
+}
+
+.tech-divider-left {
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-primary) 0%, rgba(226, 232, 240, 0.8) 70%, transparent 100%);
+}
+
+/* Pulsing LED Indicators for Light Mode */
+@keyframes pulse-led-light {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(0.95);
+    box-shadow: 0 0 0 rgba(37, 99, 235, 0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+    box-shadow: 0 0 6px rgba(37, 99, 235, 0.5);
+  }
+}
+
+.led-pulse-blue {
+  animation: pulse-led-light 2s infinite ease-in-out;
+}
+
+.led-pulse-blue-fast {
+  animation: pulse-led-light 0.8s infinite ease-in-out;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.scanline-effect {
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to bottom, transparent, rgba(37, 99, 235, 0.05) 50%, transparent);
+  animation: scanline 6s linear infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Light Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Technical Text Colors for Light Theme */
+.terminal-blue {
+  color: #2563EB;
+  text-shadow: 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.terminal-amber {
+  color: #D97706; /* Darker amber for contrast */
+}
+
+.terminal-green {
+  color: #16A34A; /* Darker green for contrast */
+}
+
+/* Glowing text styling */
+.glow-text-blue {
+  text-shadow: 0 0 8px rgba(37, 99, 235, 0.2);
+}
+
+/* Form overrides */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+}
+
+/* Engineering Table Styles */
+.eng-table th {
+  border-bottom: 2px solid #E2E8F0;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.eng-table td {
+  border-bottom: 1px dashed #E2E8F0;
+}
+
+.eng-table tr:last-child td {
+  border-bottom: none;
+}

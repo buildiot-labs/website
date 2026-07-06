@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <title>BuildIoT Labs | Premium Firmware Engineering & IoT Ecosystem Optimization</title>
+  <meta name="description" content="BuildIoT Labs engineers high-performance firmware, optimizes embedded systems for ultra-low power consumption, and designs scalable MQTT telemetry pipelines for global enterprises.">
+  <meta name="keywords" content="IoT Engineering, Embedded Systems, Firmware Optimization, ESP32, STM32, FreeRTOS, Low Power Optimization, Telemetry, MQTT, C/C++ Developer">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Tailwind CSS v3 via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            obsidian: {
+              DEFAULT: '#F8F9FA',
+              light: '#FFFFFF',
+              card: '#FFFFFF',
+              border: '#E2E8F0',
+            },
+            crimson: {
+              DEFAULT: '#2563EB', /* Modern Tech Blue */
+              dark: '#1D4ED8',
+              border: '#DBEAFE',
+              bright: '#3B82F6',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-50 text-slate-600 antialiased selection:bg-blue-600 selection:text-white">
+
+  <!-- Background Glowing Orbs (Pastel Glows) -->
+  <div class="absolute top-0 left-0 w-full h-[900px] glow-lavender pointer-events-none z-0"></div>
+  <div class="absolute top-0 right-0 w-full h-[900px] glow-blue pointer-events-none z-0"></div>
+  <div class="absolute top-[800px] left-1/4 w-full h-[700px] glow-amber pointer-events-none z-0"></div>
+  <div class="absolute bottom-0 left-0 w-full h-[900px] glow-blue pointer-events-none z-0 opacity-40"></div>
+
+  <!-- Faint Tech Grid Background -->
+  <div class="absolute inset-0 tech-grid-bg opacity-30 pointer-events-none z-0"></div>
+
+  <!-- Navigation Bar -->
+  <header class="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/70 backdrop-blur-md shadow-[0_1px_3px_rgba(15,23,42,0.03)]">
+    <div class="mx-auto flex max-w-7xl items-center justify-between p-4 md:px-8">
+      
+      <!-- Logo Container -->
+      <a href="#" class="flex items-center group" id="nav-logo">
+        <div class="bg-transparent py-1 transition-all duration-300">
+          <img src="BuildIoT BD.png" alt="BuildIoT Labs Logo" class="h-10 md:h-12 w-auto object-contain bg-transparent" />
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide">
+        <a href="#capabilities" class="text-slate-500 hover:text-slate-900 transition-colors duration-200" id="nav-link-capabilities">Capabilities</a>
+        <a href="#tech-stack" class="text-slate-500 hover:text-slate-900 transition-colors duration-200" id="nav-link-stack">Tech Stack</a>
+        <a href="#case-study" class="text-slate-500 hover:text-slate-900 transition-colors duration-200" id="nav-link-projects">Projects</a>
+        <a href="#contact" class="text-slate-500 hover:text-slate-900 transition-colors duration-200" id="nav-link-contact">Contact</a>
+      </nav>
+
+      <!-- Desktop Action CTA -->
+      <div class="hidden md:flex items-center">
+        <a href="#contact" class="px-5 py-2.5 rounded bg-blue-600 hover:bg-blue-700 text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 shadow-sm hover:shadow shadow-blue-500/10" id="nav-cta">
+          Engage the Lab
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button type="button" class="md:hidden flex items-center justify-center p-2 rounded text-slate-500 hover:text-slate-900 hover:bg-slate-100 border border-slate-200" id="mobile-menu-btn" aria-label="Open navigation menu">
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Layout -->
+  <div class="fixed inset-0 z-50 w-full h-full bg-slate-900/40 backdrop-blur-sm transform translate-x-full transition-transform duration-300 ease-in-out md:hidden flex justify-end" id="mobile-drawer" aria-modal="true" role="dialog">
+    <div class="w-80 h-full bg-white border-l border-slate-200 p-6 flex flex-col justify-between shadow-2xl relative">
+      <div>
+        <div class="flex items-center justify-between pb-6 border-b border-slate-100">
+          <div class="bg-transparent py-1">
+            <img src="BuildIoT BD.png" alt="BuildIoT Labs Logo" class="h-8 w-auto object-contain bg-transparent" />
+          </div>
+          <button type="button" class="p-2 rounded text-slate-400 hover:text-slate-600" id="mobile-drawer-close" aria-label="Close menu">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        
+        <nav class="flex flex-col space-y-6 mt-8 font-mono text-sm tracking-wide">
+          <a href="#capabilities" class="mobile-link text-slate-600 hover:text-slate-900 py-2" id="mobile-link-capabilities">/ capabilities</a>
+          <a href="#tech-stack" class="mobile-link text-slate-600 hover:text-slate-900 py-2" id="mobile-link-stack">/ tech-stack</a>
+          <a href="#case-study" class="mobile-link text-slate-600 hover:text-slate-900 py-2" id="mobile-link-projects">/ projects</a>
+          <a href="#contact" class="mobile-link text-slate-600 hover:text-slate-900 py-2" id="mobile-link-contact">/ contact</a>
+        </nav>
+      </div>
+
+      <div class="pt-6 border-t border-slate-100">
+        <a href="#contact" class="mobile-link w-full block text-center py-3 rounded bg-blue-600 hover:bg-blue-700 text-white font-mono text-xs uppercase tracking-wider transition-colors duration-300" id="mobile-drawer-cta">
+          Engage the Lab
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section (Split Layout) -->
+  <section class="relative z-10 pt-12 pb-20 md:pt-20 md:pb-28 px-4 md:px-8 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      
+      <!-- Left Column: Text & CTAs -->
+      <div class="lg:col-span-6 space-y-8 text-left">
+        
+        <!-- Micro Badge -->
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-blue-100 bg-blue-50/50" id="hero-badge">
+          <span class="w-1.5 h-1.5 rounded-full bg-blue-600 led-pulse-blue"></span>
+          <span class="text-[10px] font-mono tracking-widest text-blue-600 uppercase">Hardware-Firmware Optimization Node</span>
+        </div>
+
+        <!-- Main Headline -->
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.1]" id="hero-title">
+          We Engineer High-Performance <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 glow-text-blue">Firmware</span> & Robust IoT Ecosystems.
+        </h1>
+
+        <!-- Sub-headline -->
+        <p class="text-base md:text-lg text-slate-600 leading-relaxed font-light" id="hero-subtitle">
+          Optimizing embedded architectures, low-power states, and scalable data pipelines for connected hardware enterprises worldwide.
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-col sm:flex-row gap-4 w-full sm:max-w-md" id="hero-actions">
+          <a href="#contact" class="px-8 py-4 rounded bg-blue-600 hover:bg-blue-700 text-white text-sm font-mono tracking-wide transition-all duration-300 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 hover:scale-[1.02] text-center font-bold" id="hero-cta-primary">
+            Schedule a Technical Consult
+          </a>
+          <a href="#tech-stack" class="px-8 py-4 rounded border border-slate-200 bg-white/80 hover:bg-white hover:border-slate-300 text-slate-700 text-sm font-mono tracking-wide transition-all duration-300 text-center shadow-sm" id="hero-cta-secondary">
+            Explore Stack
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Hero Image -->
+      <div class="lg:col-span-6 flex justify-center w-full">
+        <img src="iot_engineer_hero.png" alt="IoT Hardware Specialist" class="w-full h-full max-h-[400px] md:max-h-[480px] object-cover rounded-2xl border border-slate-200/80 shadow-sm" />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Technical Divider line -->
+  <div class="tech-divider"></div>
+
+  <!-- Live Lab Monitor Section -->
+  <section class="py-16 md:py-20 px-4 md:px-8 max-w-7xl mx-auto relative z-10" id="live-monitor">
+    
+    <!-- Section Header -->
+    <div class="mb-10 text-left max-w-3xl">
+      <h2 class="text-xs font-mono text-blue-600 font-bold uppercase tracking-widest">// LIVE LAB MONITOR</h2>
+      <h3 class="text-3xl font-extrabold text-slate-900 mt-2">Active Node Telemetry Matrix</h3>
+      <p class="text-sm text-slate-500 mt-2 font-light">
+        Real-time telemetry stream from our test harness nodes. Displays active register flags, standing current indicators, and runtime FreeRTOS execution logs.
+      </p>
+    </div>
+
+    <!-- Dashboard Widget Grid -->
+    <div class="bg-white border border-slate-200/80 rounded-2xl shadow-sm p-6 md:p-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: MCU Status Variables (4 cols) -->
+        <div class="lg:col-span-4 space-y-6">
+          <div class="border-b border-slate-100 pb-3">
+            <h4 class="text-xs font-mono font-bold tracking-wider text-slate-400 uppercase flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-blue-600 led-pulse-blue"></span>
+              Node Diagnostics
+            </h4>
+          </div>
+          
+          <div class="grid grid-cols-2 gap-4">
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 flex flex-col justify-between">
+              <span class="text-[10px] font-mono text-slate-400 uppercase">Clock Freq</span>
+              <span class="text-lg font-bold text-slate-900 mt-1 font-technical" id="mon-mcu-freq">240 MHz</span>
+            </div>
+            
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 flex flex-col justify-between">
+              <span class="text-[10px] font-mono text-slate-400 uppercase">Current Draw</span>
+              <span class="text-lg font-bold text-blue-600 mt-1 font-technical" id="mon-current">48.3 mA</span>
+            </div>
+            
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 flex flex-col justify-between">
+              <span class="text-[10px] font-mono text-slate-400 uppercase">RTOS State</span>
+              <span class="text-lg font-bold text-slate-800 mt-1 font-technical" id="mon-rtos-state">SCHED_RUN</span>
+            </div>
+
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 flex flex-col justify-between">
+              <span class="text-[10px] font-mono text-slate-400 uppercase">Telemetry Out</span>
+              <span class="text-lg font-bold text-slate-800 mt-1 font-technical" id="mon-telemetry">158,402 TX</span>
+            </div>
+          </div>
+
+          <div class="p-4 bg-blue-50/30 rounded-xl border border-blue-100/50 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <span class="text-[10px] font-mono text-blue-600 uppercase font-semibold">Edge Latency</span>
+              <span class="text-xs font-mono text-slate-500 font-light">broker ping</span>
+            </div>
+            <span class="text-xs font-mono text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded font-bold">14 ms</span>
+          </div>
+        </div>
+
+        <!-- Middle: Register Matrix (3 cols) -->
+        <div class="lg:col-span-3 space-y-6">
+          <div class="border-b border-slate-100 pb-3">
+            <h4 class="text-xs font-mono font-bold tracking-wider text-slate-400 uppercase">
+              // Register Map (RTC_CNTL)
+            </h4>
+          </div>
+          
+          <div class="bg-slate-50 rounded-xl border border-slate-100 p-4 min-h-[220px] flex flex-col justify-between">
+            <div class="grid grid-cols-1 gap-2 text-xs font-mono" id="mon-register-grid">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Telemetry Logger Console (5 cols) -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
+            <h4 class="text-xs font-mono font-bold tracking-wider text-slate-400 uppercase">
+              // Telemetry Logger
+            </h4>
+            <span class="text-[9px] font-mono text-slate-400">BAUD: 115200</span>
+          </div>
+          
+          <!-- Terminal console container -->
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-md font-mono text-[10px] text-slate-300 h-[220px] overflow-y-auto space-y-1.5 scrollbar-thin text-left relative scanline-container">
+            <div class="scanline-effect"></div>
+            <div class="absolute inset-0 tech-grid-bg-fine opacity-10 pointer-events-none"></div>
+            
+            <div class="relative z-10 space-y-1.5" id="mon-terminal-log">
+              <!-- Simulated terminal logs appear here -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Divider line -->
+  <div class="tech-divider"></div>
+
+  <!-- Capabilities Section -->
+  <section class="py-20 md:py-28 px-4 md:px-8 max-w-7xl mx-auto relative z-10" id="capabilities">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-xs font-mono text-blue-600 font-bold uppercase tracking-widest">// CORE LAB CAPABILITIES</h2>
+      <h3 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3">High-Reliability Embedded Firmware Engineering</h3>
+      <p class="text-slate-600 mt-4 leading-relaxed font-light">
+        We bridge the gap between heavy physical components and light digital models, ensuring every byte and micro-ampere is utilized efficiently.
+      </p>
+    </div>
+
+    <!-- 3-Card Grid Layout (Light Cards) -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Card 1 -->
+      <div class="premium-light-card rounded-xl p-8 flex flex-col justify-between" id="cap-card-1">
+        <div>
+          <!-- Hex block visualization -->
+          <div class="w-10 h-10 rounded-lg border border-blue-200 bg-blue-50/50 flex items-center justify-center mb-6 text-blue-600 font-mono text-sm shadow-sm">
+            01
+          </div>
+          <h4 class="text-lg font-bold text-slate-900 font-mono tracking-tight">Embedded Firmware Architecture</h4>
+          <p class="text-sm text-slate-600 mt-4 leading-relaxed font-light">
+            Native C/C++ development across ESP32 and STM32 chips using native RTOS frameworks to guarantee deterministic execution, hard-realtime response times, and bulletproof runtime stability.
+          </p>
+        </div>
+        <div class="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-mono text-slate-400">
+          <span>Target: Bare-metal & RTOS</span>
+          <span class="text-blue-600 bg-blue-50 px-2 py-0.5 rounded">C/C++</span>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="premium-light-card rounded-xl p-8 flex flex-col justify-between" id="cap-card-2">
+        <div>
+          <div class="w-10 h-10 rounded-lg border border-blue-200 bg-blue-50/50 flex items-center justify-center mb-6 text-blue-600 font-mono text-sm shadow-sm">
+            02
+          </div>
+          <h4 class="text-lg font-bold text-slate-900 font-mono tracking-tight">Power Lifecycle Tuning</h4>
+          <p class="text-sm text-slate-600 mt-4 leading-relaxed font-light">
+            Micro-ampere standby configuration, advanced deep-sleep routines, and battery management optimization. We design systems that run for years on standard coin-cell or custom LiPo battery setups.
+          </p>
+        </div>
+        <div class="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-mono text-slate-400">
+          <span>Target: Low power profiles</span>
+          <span class="text-blue-600 bg-blue-50 px-2 py-0.5 rounded">15µA Idle</span>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="premium-light-card rounded-xl p-8 flex flex-col justify-between" id="cap-card-3">
+        <div>
+          <div class="w-10 h-10 rounded-lg border border-blue-200 bg-blue-50/50 flex items-center justify-center mb-6 text-blue-600 font-mono text-sm shadow-sm">
+            03
+          </div>
+          <h4 class="text-lg font-bold text-slate-900 font-mono tracking-tight">Data Pipeline Engineering</h4>
+          <p class="text-sm text-slate-600 mt-4 leading-relaxed font-light">
+            Lean, high-throughput JSON-over-MQTT networks built to relay telemetry instantly without server inflation. Optimized buffer handling, local flash storage, and connection retry systems.
+          </p>
+        </div>
+        <div class="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-mono text-slate-400">
+          <span>Target: High-speed TCP/IP</span>
+          <span class="text-blue-600 bg-blue-50 px-2 py-0.5 rounded">MQTT/TLS</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Technical Divider line -->
+  <div class="tech-divider"></div>
+
+  <!-- Tech Stack Section -->
+  <section class="py-20 md:py-28 px-4 md:px-8 max-w-7xl mx-auto relative z-10" id="tech-stack">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+      
+      <!-- Left side: Sticky info block -->
+      <div class="lg:sticky lg:top-28 space-y-6">
+        <h2 class="text-xs font-mono text-blue-600 font-bold uppercase tracking-widest">// ARCHITECTURE ENGINE</h2>
+        <h3 class="text-3xl font-extrabold text-slate-900">The Interactive Tech Stack Matrix</h3>
+        <p class="text-slate-600 leading-relaxed font-light">
+          We work deep down inside hardware and software, leveraging open standards and robust libraries to build secure, modular ecosystems that adapt to scaling pressures easily.
+        </p>
+        <div class="tech-divider-left"></div>
+        <div class="flex flex-col space-y-2 font-mono text-xs text-slate-500">
+          <div class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+            <span>100% Native Implementation</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+            <span>Zero Unused Bloat Dependencies</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+            <span>Military-Grade TLS 1.3 Telemetry Encrypt</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right side: Tabbed Engineering Grid matrix -->
+      <div class="lg:col-span-2 space-y-8" id="stack-tabs-container">
+        
+        <!-- Tab selector headers -->
+        <div class="flex flex-wrap gap-2 border-b border-slate-200 pb-4">
+          <button class="stack-tab-btn px-4 py-2 rounded-lg font-mono text-xs uppercase tracking-wider transition-all border border-blue-600 text-white bg-blue-600 shadow-sm" data-tab="tab-hardware" id="btn-tab-hardware">
+            Hardware / Kernel
+          </button>
+          <button class="stack-tab-btn px-4 py-2 rounded-lg font-mono text-xs uppercase tracking-wider transition-all border border-transparent bg-slate-100 text-slate-600 hover:bg-slate-200" data-tab="tab-transport" id="btn-tab-transport">
+            Transport
+          </button>
+          <button class="stack-tab-btn px-4 py-2 rounded-lg font-mono text-xs uppercase tracking-wider transition-all border border-transparent bg-slate-100 text-slate-600 hover:bg-slate-200" data-tab="tab-infra" id="btn-tab-infra">
+            Infrastructure / DevOps
+          </button>
+          <button class="stack-tab-btn px-4 py-2 rounded-lg font-mono text-xs uppercase tracking-wider transition-all border border-transparent bg-slate-100 text-slate-600 hover:bg-slate-200" data-tab="tab-visual" id="btn-tab-visual">
+            Visualization
+          </button>
+        </div>
+
+        <!-- Tab contents wrapper -->
+        <div class="relative min-h-[300px]">
+          
+          <!-- Pane 1: Hardware/Kernel -->
+          <div class="stack-tab-pane grid grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-300 ease-out" id="tab-hardware">
+            
+            <div class="p-5 border border-slate-200 bg-white rounded-xl flex flex-col justify-between shadow-sm">
+              <div>
+                <span class="text-blue-600 font-mono text-xs font-semibold">MCU ARCHITECTURE</span>
+                <h4 class="text-slate-900 font-bold text-base mt-2">ESP32 & ESP32-S3 / C3</h4>
+                <p class="text-xs text-slate-600 mt-2 leading-relaxed font-light">Custom dual-core layout optimization, eFuse credential baking, partition customization, and hardware-accelerated crypto APIs.</p>
+              </div>
+              <div class="border-t border-slate-100 pt-3 mt-4 text-[10px] font-mono text-slate-400">Framework: ESP-IDF (Native SDK)</div>
+            </div>
+
+            <div class="p-5 border border-slate-200 bg-white rounded-xl flex flex-col justify-between shadow-sm">
+              <div>
+                <span class="text-blue-600 font-mono text-xs font-semibold">MCU ARCHITECTURE</span>
+                <h4 class="text-slate-900 font-bold text-base mt-2">STM32 (ARM Cortex-M)</h4>
+                <p class="text-xs text-slate-600 mt-2 leading-relaxed font-light">Custom DMA channel scheduling, bare-metal peripheral drivers (SPI, I2C, UART), sleep clock gating, and power manager tuning.</p>
+              </div>
+              <div class="border-t border-slate-100 pt-3 mt-4 text-[10px] font-mono text-slate-400">Framework: STM32CubeHAL / LL</div>
+            </div>
+
+            <div class="p-5 border border-slate-200 bg-white rounded-xl flex flex-col justify-between shadow-sm">
+              <div>
+                <span class="text-blue-600 font-mono text-xs font-semibold">KERNEL SCHEDULER</span>
+                <h4 class="text-white font-bold text-base mt-2 text-slate-900">FreeRTOS Framework</h4>
+                <p class="text-xs text-slate-600 mt-2 leading-relaxed font-light">Preemptive scheduling, task prioritization matrix, custom ring buffers, binary/counting semaphores, and inter-task queue tuning.</p>
+              </div>
+              <div class="border-t border-slate-100 pt-3 mt-4 text-[10px] font-mono text-slate-400">Integration: Multitasking Determinism</div>
+            </div>
+
+            <div class="p-5 border border-slate-200 bg-white rounded-xl flex flex-col justify-between shadow-sm">
+              <div>
+                <span class="text-blue-600 font-mono text-xs font-semibold">DEVELOPMENT RUNTIME</span>
+                <h4 class="text-slate-900 font-bold text-base mt-2">Native C / C++17</h4>
+                <p class="text-xs text-slate-600 mt-2 leading-relaxed font-light">Strict zero-heap memory policies, static typing allocation, memory-mapped I/O controls, and optimized algorithmic layouts.</p>
+              </div>
+              <div class="border-t border-slate-100 pt-3 mt-4 text-[10px] font-mono text-slate-400">Toolchain: GCC Compiler / Clang Static Linter</div>
+            </div>
+
+          </div>
+
+          <!-- Pane 2: Transport (Hidden by default) -->
+          <div class="stack-tab-pane hidden grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-300 ease-out" id="tab-transport">
+            
+            <div class="p-5 border border-slate-200 bg-white rounded-xl flex flex-col justify-between shadow-sm">
+              <div>
+                <span class="text-blue-600 font-mono text-xs font-semibold">LIGHTWEIGHT PROTOCOL</span>
+                <h4 class="text-slate-900 font-bold text-base mt-2">MQTT Over TLS</h4>
+                <p class="text-xs text-slate-600 mt-2 leading-relaxed font-light">QoS 0/1 reliability profiles, lightweight keep-alive pings, custom payload serialization, and client-certificate mutual authentication.</p>
+              </div>
+              <div class="border-t border-slate-100 pt-3 mt-4 text-[10px] font-mono text-slate-400">Broker: Mosquitto / EMQX</div>
+            </div>
+
+            <div class="p-5 border border-slate-200 bg-white rounded-xl flex flex-col justify-between shadow-sm">
+              <div>
+                <span class="text-blue-600 font-mono text-xs font-semibold">REALTIME BIDIRECTIONAL</span>
+                <h4 class="text-slate-900 font-bold text-base mt-2">WebSockets Channels</h4>
+                <p class="text-xs text-slate-600 mt-2 leading-relaxed font-light">Persistent TCP tunnels for instant command control signals, raw binary frame handling, and low-latency client status updates.</p>
+              </div>
+              <div class="border-t border-slate-100 pt-3 mt-4 text-[10px] font-mono text-slate-400">Bandwidth: Microsecond Latency</div>
+            </div>
+
+            <div class="p-5 border border-slate-200 bg-white rounded-xl flex flex-col justify-between shadow-sm">
+              <div>
+                <span class="text-blue-600 font-mono text-xs font-semibold">API LAYOUT</span>
+                <h4 class="text-slate-900 font-bold text-base mt-2">RESTful HTTP Services</h4>
+                <p class="text-xs text-slate-600 mt-2 leading-relaxed font-light">Fallback configuration servers, token authorization schemes, OTA file bundle deliveries, and logging register diagnostics endpoints.</p>
+              </div>
+              <div class="border-t border-slate-100 pt-3 mt-4 text-[10px] font-mono text-slate-400">Payload: Chunked Data Streams</div>
+            </div>
+
+            <div class="p-5 border border-slate-200 bg-white rounded-xl flex flex-col justify-between shadow-sm">
+              <div>
+                <span class="text-blue-600 font-mono text-xs font-semibold">DATA STRUCTURE</span>
+                <h4 class="text-slate-900 font-bold text-base mt-2">Lean JSON Payloads</h4>
+                <p class="text-xs text-slate-600 mt-2 leading-relaxed font-light">Extremely compressed data structures, custom parser profiles, and pre-allocated static buffers to block buffer overrun vulnerabilities.</p>
+              </div>
+              <div class="border-t border-slate-100 pt-3 mt-4 text-[10px] font-mono text-slate-400">Parser: ArduinoJSON / cJSON</div>
+            </div>
+
+          </div>
+
+          <!-- Pane 3: Infrastructure (Hidden by default) -->
+          <div class="stack-tab-pane hidden grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-300 ease-out" id="tab-infra">
+            
+            <div class="p-5 border border-slate-200 bg-white rounded-xl flex flex-col justify-between shadow-sm">
+              <div>
+                <span class="text-blue-600 font-mono text-xs font-semibold">DATABASE CLUSTERS</span>
+                <h4 class="text-slate-900 font-bold text-base mt-2">InfluxDB TSDB</h4>
+                <p class="text-xs text-slate-600 mt-2 leading-relaxed font-light">High-volume timestamp data pipelines, custom downsampling algorithms, data retention profiles, and fast vector telemetry analytics.</p>
+              </div>
+              <div class="border-t border-slate-100 pt-3 mt-4 text-[10px] font-mono text-slate-400">Format: Time-Series Database</div>
+            </div>
+
+            <div class="p-5 border border-slate-200 bg-white rounded-xl flex flex-col justify-between shadow-sm">
+              <div>
+                <span class="text-blue-600 font-mono text-xs font-semibold">ISOLATED DEPLOYMENTS</span>
+                <h4 class="text-slate-900 font-bold text-base mt-2">Docker Microservices</h4>
+                <p class="text-xs text-slate-600 mt-2 leading-relaxed font-light">Containerized pipeline routing layers, isolated development staging rigs, and automated multi-architecture image construction pipelines.</p>
+              </div>
+              <div class="border-t border-slate-100 pt-3 mt-4 text-[10px] font-mono text-slate-400">Orchestrator: Docker-Compose / K8s</div>
+            </div>
+
+            <div class="p-5 border border-slate-200 bg-white rounded-xl flex flex-col justify-between shadow-sm">
+              <div>
+                <span class="text-blue-600 font-mono text-xs font-semibold">MESSAGE BROKER</span>
+                <h4 class="text-slate-900 font-bold text-base mt-2">Mosquitto MQTT</h4>
+                <p class="text-xs text-slate-600 mt-2 leading-relaxed font-light">Highly efficient C-based packet routing broker, advanced authentication plugins, connection rate limiting, and ACL definitions.</p>
+              </div>
+              <div class="border-t border-slate-100 pt-3 mt-4 text-[10px] font-mono text-slate-400">Throughput: 10,000+ client nodes</div>
+            </div>
+
+            <div class="p-5 border border-slate-200 bg-white rounded-xl flex flex-col justify-between shadow-sm">
+              <div>
+                <span class="text-blue-600 font-mono text-xs font-semibold">GATEWAY BACKEND</span>
+                <h4 class="text-slate-900 font-bold text-base mt-2">Node.js Engine</h4>
+                <p class="text-xs text-slate-600 mt-2 leading-relaxed font-light">Fast event-driven gateway applications, sensor-data schema verification APIs, and integration middleware for enterprise cloud databases.</p>
+              </div>
+              <div class="border-t border-slate-100 pt-3 mt-4 text-[10px] font-mono text-slate-400">Framework: Express / Fastify / TypeScript</div>
+            </div>
+
+          </div>
+
+          <!-- Pane 4: Visualization (Hidden by default) -->
+          <div class="stack-tab-pane hidden grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-300 ease-out" id="tab-visual">
+            
+            <div class="p-5 border border-slate-200 bg-white rounded-xl flex flex-col justify-between shadow-sm">
+              <div>
+                <span class="text-blue-600 font-mono text-xs font-semibold">ANALYTICS ENGINE</span>
+                <h4 class="text-slate-900 font-bold text-base mt-2">Grafana Analytics</h4>
+                <p class="text-xs text-slate-600 mt-2 leading-relaxed font-light">Advanced industrial hardware dashboards, anomaly-detection alert channels (Slack/Email), and deep multi-variable system health panels.</p>
+              </div>
+              <div class="border-t border-slate-100 pt-3 mt-4 text-[10px] font-mono text-slate-400">Security: RBAC Dashboards</div>
+            </div>
+
+            <div class="p-5 border border-slate-200 bg-white rounded-xl flex flex-col justify-between shadow-sm">
+              <div>
+                <span class="text-blue-600 font-mono text-xs font-semibold">PROTOTYPING DASHBOARD</span>
+                <h4 class="text-slate-900 font-bold text-base mt-2">Node-RED Dashboards</h4>
+                <p class="text-xs text-slate-600 mt-2 leading-relaxed font-light">Low-code dynamic flows for rapid gateway prototyping, hardware telemetry mock test rigs, and quick user validation interfaces.</p>
+              </div>
+              <div class="border-t border-slate-100 pt-3 mt-4 text-[10px] font-mono text-slate-400">Speed: Instant Drag-and-Drop flow wire</div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Technical Divider line -->
+  <div class="tech-divider"></div>
+
+  <!-- Featured Lab Experiment (Case Study Showcase - Light themed) -->
+  <section class="py-20 md:py-28 px-4 md:px-8 max-w-7xl mx-auto relative z-10" id="case-study">
+    
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-xs font-mono text-blue-600 font-bold uppercase tracking-widest">// ACTIVE LAB EXPERIMENT</h2>
+      <h3 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3">Featured Case Study Showcase</h3>
+    </div>
+
+    <!-- Case Study Card -->
+    <div class="premium-light-card rounded-xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-0 border border-slate-200/80 bg-white relative">
+      
+      <!-- Blue Cybernetic border detail -->
+      <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-600 via-blue-900 to-transparent"></div>
+
+      <!-- Case study details -->
+      <div class="lg:col-span-7 p-8 md:p-12 flex flex-col justify-between space-y-8">
+        <div class="space-y-4">
+          <!-- Live tag -->
+          <div class="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded border border-emerald-200 bg-emerald-50 text-emerald-600 font-mono text-[9px] uppercase tracking-wider">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 led-pulse-blue-fast"></span>
+            <span>Live Field Stage Deployment</span>
+          </div>
+
+          <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900" id="case-study-title">HydroAlert: Smart Water Management Platform</h3>
+          
+          <p class="text-sm text-slate-600 leading-relaxed font-light" id="case-study-desc">
+            Showcasing an end-to-end IoT system implementing machine learning models alongside localized physical hardware to monitor consumption variables and intelligently predict demand patterns. The system protects pipelines against catastrophic leaks by using real-time edge processing to close control valves in milliseconds.
+          </p>
+
+          <!-- Metrics Block -->
+          <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-100 font-mono">
+            <div>
+              <div class="text-slate-400 text-[10px] uppercase">Telemetry Latency</div>
+              <div class="text-blue-600 text-lg font-bold mt-1" id="metric-latency">14 ms</div>
+            </div>
+            <div>
+              <div class="text-slate-400 text-[10px] uppercase">Power Efficiency</div>
+              <div class="text-emerald-600 text-lg font-bold mt-1" id="metric-power">98.2%</div>
+            </div>
+            <div>
+              <div class="text-slate-400 text-[10px] uppercase">Prediction Accuracy</div>
+              <div class="text-blue-600 text-lg font-bold mt-1" id="metric-accuracy">96.7%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tech Badges -->
+        <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-100" id="case-study-badges">
+          <span class="px-2.5 py-1 rounded bg-slate-50 border border-slate-200 text-slate-500 font-mono text-xs">ESP32</span>
+          <span class="px-2.5 py-1 rounded bg-slate-50 border border-slate-200 text-slate-500 font-mono text-xs">FreeRTOS</span>
+          <span class="px-2.5 py-1 rounded bg-slate-50 border border-slate-200 text-slate-500 font-mono text-xs">MQTT</span>
+          <span class="px-2.5 py-1 rounded bg-slate-50 border border-slate-200 text-slate-500 font-mono text-xs">InfluxDB</span>
+          <span class="px-2.5 py-1 rounded bg-slate-50 border border-slate-200 text-slate-500 font-mono text-xs">Machine Learning</span>
+        </div>
+      </div>
+
+      <!-- Technical schematic illustration code box (Maintain dark contrast panel) -->
+      <div class="lg:col-span-5 border-t lg:border-t-0 lg:border-l border-slate-200/80 bg-slate-900 p-8 flex flex-col justify-center relative overflow-hidden">
+        <!-- Scanline inside code box -->
+        <div class="scanline-effect"></div>
+        <div class="tech-grid-bg-fine absolute inset-0 opacity-10 pointer-events-none"></div>
+
+        <!-- Simulated terminal schematic code box -->
+        <div class="relative z-10 space-y-4">
+          <div class="flex items-center justify-between text-[10px] font-mono text-slate-500 border-b border-slate-800 pb-2">
+            <span>SCHEMATIC: EDGE_PREDICT_NODE</span>
+            <span>REV_2.1</span>
+          </div>
+
+          <div class="font-mono text-xs space-y-2 text-slate-300 select-none">
+            <div><span class="text-slate-500">// Sensor Signal Conditioning</span></div>
+            <div>analog_read_val = adc1_get_raw(ADC1_CHANNEL_6);</div>
+            <div>voltage = (analog_read_val * 3.3) / 4095.0;</div>
+            <div>flow_rate = (voltage - calibration_offset) * scale_factor;</div>
+            
+            <div class="pt-2"><span class="text-slate-500">// Machine Learning Edge Inference</span></div>
+            <div>ml_input[0] = flow_rate;</div>
+            <div>ml_input[1] = ambient_temperature;</div>
+            <div>ml_prediction = edge_ml_infer(ml_input);</div>
+            
+            <div class="pt-2"><span class="text-slate-500">// Closed-Loop Valve Control Interrupt</span></div>
+            <div class="text-blue-400">if (ml_prediction > CRITICAL_THRESHOLD) {</div>
+            <div class="text-blue-400 pl-4">gpio_set_level(SOLENOID_RELAY_PIN, 1);</div>
+            <div class="text-blue-400 pl-4">esp_mqtt_client_publish(client, "leak/alert", ...);</div>
+            <div class="text-blue-400">}</div>
+          </div>
+
+          <div class="flex items-center gap-2 pt-4 border-t border-slate-800 text-[10px] font-mono">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 led-pulse-blue"></span>
+            <span class="text-slate-500">Relay Solenoid state: SAFE (CLOSED_LOOP)</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Technical Divider line -->
+  <div class="tech-divider"></div>
+
+  <!-- Lead Capture / Contact Portal -->
+  <section class="py-20 md:py-28 px-4 md:px-8 max-w-4xl mx-auto relative z-10" id="contact">
+    
+    <div class="text-center mb-12">
+      <h2 class="text-xs font-mono text-blue-600 font-bold uppercase tracking-widest">// DEPLOY BRIEFING</h2>
+      <h3 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-3" id="contact-title">Brief the Engineers</h3>
+      <p class="text-slate-600 mt-4 leading-relaxed font-light" id="contact-subtitle">
+        Have a critical firmware backlog or a structural telemetry pipeline issue? Complete the specifications below.
+      </p>
+    </div>
+
+    <!-- Briefing Form Container -->
+    <div class="premium-light-card rounded-xl p-6 md:p-10 border border-slate-200 bg-white">
+      
+      <!-- Briefing Form Container (Web3Forms API Integrated) -->
+      <form id="briefing-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+        <input type="hidden" name="access_key" value="81e0a762-8e22-4f39-8ca2-aeb9a7f13247">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Full Name / Company Name -->
+          <div class="space-y-2">
+            <label for="form-name" class="block font-mono text-xs text-slate-500 uppercase tracking-wide">Full Name / Company Name <span class="text-red-500">*</span></label>
+            <input type="text" id="form-name" name="name_or_company" required placeholder="Enter your name or organization name" 
+                   class="w-full bg-slate-50/50 border border-slate-200 rounded-lg px-4 py-3.5 text-slate-800 text-sm font-sans focus:border-blue-600 transition-all duration-300">
+          </div>
+
+          <!-- Corporate Email -->
+          <div class="space-y-2">
+            <label for="form-email" class="block font-mono text-xs text-slate-500 uppercase tracking-wide">Corporate Email <span class="text-red-500">*</span></label>
+            <input type="email" id="form-email" name="email" required placeholder="john@enterprise.com" 
+                   class="w-full bg-slate-50/50 border border-slate-200 rounded-lg px-4 py-3.5 text-slate-800 text-sm font-sans focus:border-blue-600 transition-all duration-300">
+          </div>
+        </div>
+
+        <!-- Designation -->
+        <div class="space-y-2">
+          <label for="form-designation" class="block font-mono text-xs text-slate-500 uppercase tracking-wide">Designation <span class="text-red-500">*</span></label>
+          <input type="text" id="form-designation" name="designation" required placeholder="e.g., CTO, Lead Hardware Engineer, Founder" 
+                 class="w-full bg-slate-50/50 border border-slate-200 rounded-lg px-4 py-3.5 text-slate-800 text-sm font-sans focus:border-blue-600 transition-all duration-300">
+        </div>
+
+        <!-- Technical Description -->
+        <div class="space-y-2">
+          <label for="form-desc" class="block font-mono text-xs text-slate-500 uppercase tracking-wide">Technical Description / Scope <span class="text-red-500">*</span></label>
+          <textarea id="form-desc" name="message" rows="5" required placeholder="Describe MCU configurations, transport protocols, pipeline throughput issues, or standby current targets..." 
+                    class="w-full bg-slate-50/50 border border-slate-200 rounded-lg px-4 py-3.5 text-slate-800 text-sm font-sans focus:border-blue-600 transition-all duration-300 resize-y"></textarea>
+        </div>
+
+        <!-- System diagnostic info status feedback line (Populated via JS during submission) -->
+        <div id="form-feedback" class="hidden"></div>
+
+        <!-- Submit Button -->
+        <div>
+          <button type="submit" id="form-submit-btn" 
+                  class="w-full py-4 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-mono font-bold uppercase tracking-widest transition-all duration-300 shadow-md hover:shadow-lg hover:scale-[1.01] flex items-center justify-center">
+            Initialize Briefing
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+
+  </section>
+
+  <!-- Footer (Light minimal footer) -->
+  <footer class="border-t border-slate-200 bg-white py-12 px-4 md:px-8 mt-20 relative z-10 text-xs text-slate-400 font-mono">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      
+      <!-- Footer Left: Branding details & terminal contact -->
+      <div class="space-y-2 text-center md:text-left">
+        <div class="flex items-center justify-center md:justify-start space-x-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-blue-600 led-pulse-blue"></span>
+          <span class="text-slate-800 font-bold">BuildIoT.Labs</span>
+        </div>
+        <p class="text-[10px] text-slate-400">PREEMPTIVE HARDWARE-FIRMWARE TUNING ENGINE</p>
+        <p class="text-slate-500">Terminal Address: <a href="mailto:hello@buildiotlabs.com" class="hover:text-blue-600 underline" id="footer-email">hello@buildiotlabs.com</a></p>
+      </div>
+
+      <!-- Footer Center: Corporate Links -->
+      <div class="flex flex-wrap justify-center gap-6 text-[10px] uppercase tracking-widest text-slate-500" id="footer-links">
+        <a href="#capabilities" class="hover:text-blue-600 transition-colors">Capabilities</a>
+        <a href="#tech-stack" class="hover:text-blue-600 transition-colors">Tech Stack</a>
+        <a href="#case-study" class="hover:text-blue-600 transition-colors">Projects</a>
+        <a href="#contact" class="hover:text-blue-600 transition-colors">Contact</a>
+      </div>
+
+      <!-- Footer Right: Copyright -->
+      <div class="text-center md:text-right text-[10px] text-slate-400">
+        <p id="copyright">© 2026 BuildIoT Labs. All Rights Reserved.</p>
+        <p class="mt-1">Firmware Cryptography Verified (TLS 1.3 / ECC-256)</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Link and Execute JavaScript file -->
+  <script src="app.js"></script>
+</body>
+</html>
